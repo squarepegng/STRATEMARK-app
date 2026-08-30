@@ -671,7 +671,7 @@ export default function NewDeckPage() {
 
       {/* Floating input pill */}
       <div
-        className="sticky bottom-0 z-20 flex justify-center px-6 pb-5 pt-3"
+        className="sticky bottom-0 z-20 flex flex-col items-center justify-center px-6 pb-5 pt-3"
         style={{ background: 'linear-gradient(transparent, rgb(var(--c-bg)) 40%)' }}
       >
         <InputPill
