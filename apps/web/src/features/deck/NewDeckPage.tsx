@@ -671,39 +671,35 @@ export default function NewDeckPage() {
 
       {/* Floating input pill */}
       <div
-        className="sticky bottom-0 z-20 flex flex-row items-center justify-center gap-6 px-6 pb-5 pt-3 w-full max-w-7xl mx-auto"
+        className="sticky bottom-0 z-20 flex flex-col items-center justify-center px-6 pb-5 pt-3"
         style={{ background: 'linear-gradient(transparent, rgb(var(--c-bg)) 40%)' }}
       >
-        <div className="flex-1 max-w-3xl flex justify-end">
-          <InputPill
-            prompt={prompt}
-            setPrompt={setPrompt}
-            region={region}
-            setRegion={setRegion}
-            engine={engine}
-            setEngine={setEngine}
-            isPro={isPro}
-            onSubmit={onSubmit}
-            disabled={running}
-            hasKey={hasKey}
-            showHint={!hasSession}
-          />
-        </div>
+        <InputPill
+          prompt={prompt}
+          setPrompt={setPrompt}
+          region={region}
+          setRegion={setRegion}
+          engine={engine}
+          setEngine={setEngine}
+          isPro={isPro}
+          onSubmit={onSubmit}
+          disabled={running}
+          hasKey={hasKey}
+          showHint={!hasSession}
+        />
         {demoGate && (
-          <div className="flex-1 max-w-md">
-            <div className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-center dark:border-amber-800 dark:bg-amber-950/40">
-              <p className="text-[13px] font-medium text-amber-900 dark:text-amber-200">
-                Researching a new market needs your Gemini API key.
-              </p>
-              <p className="mt-1 text-[12px] leading-relaxed text-amber-800/90 dark:text-amber-300/90">
-                Grounded research runs on your own key — nothing here is ever faked.{' '}
-                <Link to="/settings" className="font-semibold underline">
-                  Add your key in Settings
-                </Link>{' '}
-                (free tier works), then come back and run “{prompt.trim() || 'this market'}” for
-                real.
-              </p>
-            </div>
+          <div className="mx-auto mt-3 w-full max-w-2xl rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-center dark:border-amber-800 dark:bg-amber-950/40">
+            <p className="text-[13px] font-medium text-amber-900 dark:text-amber-200">
+              Researching a new market needs your Gemini API key.
+            </p>
+            <p className="mt-1 text-[12px] leading-relaxed text-amber-800/90 dark:text-amber-300/90">
+              Grounded research runs on your own key — nothing here is ever faked.{' '}
+              <Link to="/settings" className="font-semibold underline">
+                Add your key in Settings
+              </Link>{' '}
+              (free tier works), then come back and run “{prompt.trim() || 'this market'}” for
+              real.
+            </p>
           </div>
         )}
       </div>
