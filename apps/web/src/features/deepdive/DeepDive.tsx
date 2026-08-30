@@ -33,6 +33,7 @@ import { useCards, useCompany, useReports } from '@/hooks/data';
 import { cn } from '@/lib/cn';
 import { MicButton } from '@/components/ui/MicButton';
 import { Logo } from '@/features/card/Logo';
+import wordmark from '@/assets/wordmark.svg';
 
 type PanelMode = 'locked' | 'floating';
 
@@ -80,6 +81,25 @@ function useIsDesktop(): boolean {
     return () => mq.removeEventListener('change', on);
   }, []);
   return desktop;
+}
+
+function useCurrentRoute(): { isStartingPage: boolean } {
+  const [hash, setHash] = useState(() => (typeof window !== 'undefined' ? window.location.hash : ''));
+  useEffect(() => {
+    const onHashChange = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  const path = typeof window !== 'undefined' ? window.location.pathname : '';
+  const isStart =
+    !hash ||
+    hash === '#/' ||
+    hash.startsWith('#/new') ||
+    path === '/' ||
+    path === '/new';
+
+  return { isStartingPage: isStart };
 }
 
 /** Rotating status phrases shown inside the assistant "typing" bubble. */
@@ -215,6 +235,7 @@ export function DeepDiveProviderWithPanel({ children }: { children: ReactNode })
   const repo = useRepository();
   const qc = useQueryClient();
   const conversational = typeof repo.askResearch === 'function';
+  const { isStartingPage } = useCurrentRoute();
 
   const [openState, setOpenState] = useState(false);
   const [scope, setScope] = useState<ResearchScope | null>(null);
@@ -457,16 +478,16 @@ export function DeepDiveProviderWithPanel({ children }: { children: ReactNode })
     >
       {children}
 
-      {/* Floating pill — in floating mode, when minimized, a tap reopens the chat. */}
-      {mode === 'floating' && !openState && scope && (
+      {/* Floating pill — in floating mode, when minimized on deck/workspace pages, a tap reopens the chat. */}
+      {mode === 'floating' && !openState && scope && !isStartingPage && (
         <button
           type="button"
           onClick={() => setOpenState(true)}
-          className="fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-fg shadow-lg transition-transform hover:scale-105"
+          className="fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface shadow-card transition-all hover:scale-105 hover:border-primary/40 active:scale-95"
           aria-label="Open AI chat"
           title="Open AI chat"
         >
-          <MessageCircle className="h-5 w-5" />
+          <img src={wordmark} alt="Stratemark AI" className="h-6 w-6 select-none" />
         </button>
       )}
 
