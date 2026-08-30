@@ -671,7 +671,7 @@ export default function NewDeckPage() {
 
       {/* Floating input pill */}
       <div
-        className="sticky bottom-0 z-20 flex flex-col items-center justify-center px-6 pb-5 pt-3"
+        className="sticky bottom-0 z-20 flex flex-row items-center justify-center gap-6 px-6 pb-5 pt-3"
         style={{ background: 'linear-gradient(transparent, rgb(var(--c-bg)) 40%)' }}
       >
         <InputPill
@@ -688,7 +688,7 @@ export default function NewDeckPage() {
           showHint={!hasSession}
         />
         {demoGate && (
-          <div className="mx-auto mt-3 max-w-xl rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-center dark:border-amber-800 dark:bg-amber-950/40">
+          <div className="max-w-md rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-center dark:border-amber-800 dark:bg-amber-950/40">
             <p className="text-[13px] font-medium text-amber-900 dark:text-amber-200">
               Researching a new market needs your Gemini API key.
             </p>
