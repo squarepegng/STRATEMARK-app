@@ -59,8 +59,8 @@ export function Sidebar() {
 
       {/* Workspace */}
       {!collapsed && (
-        <p className="mb-2 px-3 text-[10px] font-medium tracking-[0.08em] text-faint">
-          workspace
+        <p className="mb-2 px-3 text-[10px] font-medium text-faint">
+          Workspace
         </p>
       )}
       <nav className="flex shrink-0 flex-col gap-0.5" aria-label="Primary">
@@ -77,7 +77,7 @@ export function Sidebar() {
       {!collapsed && (
         <div className="mt-6 flex min-h-0 flex-1 flex-col">
           <div className="mb-2 flex items-center justify-between px-3">
-            <p className="text-[10px] font-medium tracking-[0.08em] text-faint">recent decks</p>
+            <p className="text-[10px] font-medium text-faint">Recent Decks</p>
             {recentDecks.length > 0 && (
               <NavLink to="/history" className="text-[10px] font-medium text-faint transition-colors hover:text-content">
                 View all
