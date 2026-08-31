@@ -14,6 +14,25 @@ import { useApiKey } from '@/lib/settings/apiKey';
 import { useMarkets } from '@/hooks/data';
 import { useResearchSession } from '@/features/deck/research-session';
 import wordmark from '@/assets/wordmark.svg';
+import { useSettingsModal } from '@/lib/settings/settingsModal';
+
+export function SettingsTrigger({ collapsed }: { collapsed: boolean }) {
+  const { open } = useSettingsModal();
+  return (
+    <button
+      type="button"
+      onClick={open}
+      title={collapsed ? "Settings" : undefined}
+      className={cn(
+        'flex items-center gap-3 rounded-lg transition-colors text-[13px] font-medium text-muted hover:bg-surface-2 hover:text-content',
+        collapsed ? 'justify-center px-0 py-2.5 w-full' : 'px-3 py-2 w-full text-left'
+      )}
+    >
+      <Gear weight="duotone" size={collapsed ? 22 : 20} />
+      {!collapsed && "Settings"}
+    </button>
+  );
+}
 
 export function Sidebar() {
   const hasKey = useApiKey((s) => s.hasKey);
@@ -66,7 +85,7 @@ export function Sidebar() {
         )}
         <SidebarLink to="/saved" icon={BookmarkSimple} label="Saved Cards" collapsed={collapsed} />
         <SidebarLink to="/reports" icon={FileText} label="Reports" collapsed={collapsed} />
-        <SidebarLink to="/settings" icon={Gear} label="Settings" collapsed={collapsed} />
+        <SettingsTrigger collapsed={collapsed} />
       </nav>
 
       {/* Recent decks — inline history (expanded only) */}
@@ -124,14 +143,9 @@ export function Sidebar() {
       )}
       {collapsed && <div className="flex-1" />}
 
-      <div className="shrink-0 px-2 pt-4">
-        {!collapsed && (
-          hasKey ? (
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-positive">
-              <span className="h-1.5 w-1.5 rounded-full bg-positive" />
-              Connected
-            </span>
-          ) : (
+      {(!hasKey) && (
+        <div className="shrink-0 px-2 pt-4">
+          {!collapsed ? (
             <NavLink
               to="/settings"
               className="inline-flex items-center gap-1.5 text-[11px] font-medium text-muted hover:text-content"
@@ -139,31 +153,13 @@ export function Sidebar() {
               <span className="h-1.5 w-1.5 rounded-full bg-neutral" />
               Add your API key
             </NavLink>
-          )
-        )}
-        {collapsed && (
-          <div className="flex justify-center">
-            <span className={cn('h-2 w-2 rounded-full', hasKey ? 'bg-positive' : 'bg-neutral')} />
-          </div>
-        )}
-        {/* The build stamp: browsers cache the published app hard, and a stale
-            build reads as "you broke my features". One glance answers it —
-            if this time looks old, hard-refresh (Cmd/Ctrl+Shift+R). */}
-        {!collapsed && (
-          <p
-            className="mt-2 text-[9px] tabular-nums text-faint"
-            title="When this build was made. If features look missing, hard-refresh (Cmd/Ctrl+Shift+R) to pull the newest build."
-          >
-            build{' '}
-            {new Date(__BUILD_AT__).toLocaleString(undefined, {
-              month: 'short',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: '2-digit',
-            })}
-          </p>
-        )}
-      </div>
+          ) : (
+            <div className="flex justify-center">
+              <span className="h-2 w-2 rounded-full bg-neutral" />
+            </div>
+          )}
+        </div>
+      )}
     </aside>
   );
 }
