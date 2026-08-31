@@ -33,7 +33,6 @@ import { useCards, useCompany, useReports } from '@/hooks/data';
 import { cn } from '@/lib/cn';
 import { MicButton } from '@/components/ui/MicButton';
 import { Logo } from '@/features/card/Logo';
-import wordmark from '@/assets/wordmark.svg';
 
 type PanelMode = 'locked' | 'floating';
 
@@ -483,11 +482,11 @@ export function DeepDiveProviderWithPanel({ children }: { children: ReactNode })
         <button
           type="button"
           onClick={() => setOpenState(true)}
-          className="fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-surface shadow-card transition-all hover:scale-105 hover:border-primary/40 active:scale-95"
+          className="fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-fg shadow-lg transition-transform hover:scale-105"
           aria-label="Open AI chat"
           title="Open AI chat"
         >
-          <img src={wordmark} alt="Stratemark AI" className="h-6 w-6 select-none" />
+          <MessageCircle className="h-5 w-5" />
         </button>
       )}
 
