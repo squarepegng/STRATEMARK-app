@@ -529,7 +529,7 @@ export default function NewDeckPage() {
         {!hasSession ? (
           /* ── Empty state ── */
           <div className="w-full max-w-2xl pb-32">
-            <div className="mb-8">
+            <div className="mb-6">
               <div className="flex items-center gap-2.5">
                 <img src={logoMark} alt="Stratemark" className="h-8 w-8" />
                 <span className="font-display text-lg font-bold tracking-tight text-content">Stratemark</span>
@@ -539,7 +539,24 @@ export default function NewDeckPage() {
                 What market should we dive into?
               </h1>
             </div>
-            <div className="mt-5 flex flex-wrap gap-2">
+
+            <div className="mb-6 w-full">
+              <InputPill
+                prompt={prompt}
+                setPrompt={setPrompt}
+                region={region}
+                setRegion={setRegion}
+                engine={engine}
+                setEngine={setEngine}
+                isPro={isPro}
+                onSubmit={onSubmit}
+                disabled={running}
+                hasKey={hasKey}
+                showHint={true}
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-2">
               {SUGGESTIONS.map((ex) => (
                 <button
                   key={ex}
@@ -691,24 +708,26 @@ export default function NewDeckPage() {
       </div>
 
       {/* Floating input pill */}
-      <div
-        className="sticky bottom-0 z-20 flex justify-center px-6 pb-5 pt-3"
-        style={{ background: 'linear-gradient(transparent, rgb(var(--c-bg)) 40%)' }}
-      >
-        <InputPill
-          prompt={prompt}
-          setPrompt={setPrompt}
-          region={region}
-          setRegion={setRegion}
-          engine={engine}
-          setEngine={setEngine}
-          isPro={isPro}
-          onSubmit={onSubmit}
-          disabled={running}
-          hasKey={hasKey}
-          showHint={!hasSession}
-        />
-      </div>
+      {hasSession && (
+        <div
+          className="sticky bottom-0 z-20 flex justify-center px-6 pb-5 pt-3"
+          style={{ background: 'linear-gradient(transparent, rgb(var(--c-bg)) 40%)' }}
+        >
+          <InputPill
+            prompt={prompt}
+            setPrompt={setPrompt}
+            region={region}
+            setRegion={setRegion}
+            engine={engine}
+            setEngine={setEngine}
+            isPro={isPro}
+            onSubmit={onSubmit}
+            disabled={running}
+            hasKey={hasKey}
+            showHint={false}
+          />
+        </div>
+      )}
     </div>
   );
 }
