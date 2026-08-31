@@ -57,12 +57,7 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* Workspace */}
-      {!collapsed && (
-        <p className="mb-2 px-3 text-[10px] font-medium text-faint">
-          Workspace
-        </p>
-      )}
+      {/* Primary Navigation */}
       <nav className="flex shrink-0 flex-col gap-0.5" aria-label="Primary">
         <SidebarLink to="/" end icon={PlusCircle} label="New Deck" collapsed={collapsed} primary />
         {/* Collapsed: no room for the inline list, so keep a link to the full history page. */}
@@ -71,6 +66,7 @@ export function Sidebar() {
         )}
         <SidebarLink to="/saved" icon={BookmarkSimple} label="Saved Cards" collapsed={collapsed} />
         <SidebarLink to="/reports" icon={FileText} label="Reports" collapsed={collapsed} />
+        <SidebarLink to="/settings" icon={Gear} label="Settings" collapsed={collapsed} />
       </nav>
 
       {/* Recent decks — inline history (expanded only) */}
@@ -127,17 +123,6 @@ export function Sidebar() {
         </div>
       )}
       {collapsed && <div className="flex-1" />}
-
-      {/* System */}
-      {!collapsed && (
-        <p className="mb-2 mt-4 px-3 text-[10px] font-medium tracking-[0.08em] text-faint">
-          system
-        </p>
-      )}
-      {collapsed && <div className="mt-4" />}
-      <nav className="flex shrink-0 flex-col gap-0.5">
-        <SidebarLink to="/settings" icon={Gear} label="Settings" collapsed={collapsed} />
-      </nav>
 
       <div className="shrink-0 px-2 pt-4">
         {!collapsed && (
